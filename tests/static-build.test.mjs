@@ -4,6 +4,7 @@ import test from "node:test";
 import { ADD_ONS, COMPARISON_ROWS, PLANS, priceWithVat } from "../app/site-data.ts";
 
 const distUrl = new URL("../dist/", import.meta.url);
+const stylesUrl = new URL("../app/globals.css", import.meta.url);
 
 test("los precios sin IVA producen los totales finales anunciados", () => {
   assert.deepEqual(
@@ -63,6 +64,14 @@ test("los términos técnicos tienen explicaciones breves", () => {
     assert.ok(row?.hint, `${label} debe incluir una explicación`);
     assert.ok(row.hint.length < 180, `${label} debe mantener una explicación corta`);
   }
+});
+
+test("las explicaciones se despliegan dentro de su fila sin cubrir otras columnas", async () => {
+  const styles = await readFile(stylesUrl, "utf8");
+
+  assert.match(styles, /\.comparison-term\s*\{[^}]*grid-template-columns:/s);
+  assert.match(styles, /\.comparison-tooltip\s*\{[^}]*position: static;[^}]*grid-column: 1 \/ -1;/s);
+  assert.doesNotMatch(styles, /left: calc\(100% \+ 10px\)/);
 });
 
 test("la compilación genera una página estática completa", async () => {

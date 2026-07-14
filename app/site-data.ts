@@ -1,11 +1,14 @@
 export const CONTACT = {
-  brand: "DE / WEB",
-  name: "David Espinoza",
-  whatsapp: "593XXXXXXXXX",
-  email: "hola@tudominio.com",
-  location: "Ecuador",
-  instagram: "https://www.instagram.com/",
-  linkedin: "https://www.linkedin.com/",
+  brand: "Angel Espinoza",
+  name: "Angel Espinoza",
+  role: "Desarrollo Web",
+  whatsapp: "593959015655",
+  whatsappDisplay: "+593 959 015 655",
+  email: "david005espinoza@gmail.com",
+  location: "Riobamba, Ecuador",
+  instagram: "https://www.instagram.com/davee.ds3/",
+  linkedin: "https://www.linkedin.com/in/david-espinoza-47466833b/",
+  portfolio: "https://mi-portafolio-6jz.pages.dev/",
 } as const;
 
 export const FEATURES = [
@@ -170,6 +173,7 @@ export const PROCESS = [
 ] as const;
 
 export const CONDITIONS = [
+  "Todos los precios están expresados en dólares estadounidenses (USD), incluyen IVA y corresponden a valores de lanzamiento vigentes hasta nuevo aviso.",
   "El dominio, hosting y certificado SSL están incluidos durante el primer año.",
   "La renovación del dominio y hosting a partir del segundo año será asumida por el propietario del negocio. El valor se informará antes del vencimiento.",
   "El dominio debe registrarse con los datos del cliente.",
@@ -179,7 +183,7 @@ export const CONDITIONS = [
   "Los cambios o funciones adicionales se cotizan por separado. No se incluyen cambios ilimitados.",
   "No se incluyen fotografías profesionales, creación de logotipo, redacción extensa ni manejo de redes sociales, salvo cotización independiente.",
   "Las licencias de plugins o herramientas premium no están incluidas cuando sean necesarias para una función especial.",
-  "La integración de pagos con tarjeta depende de una cuenta comercial aprobada por la pasarela seleccionada.",
+  "La integración de pagos con tarjeta se realiza con una pasarela compatible elegida según el proyecto y depende de una cuenta comercial aprobada.",
   "Las comisiones cobradas por bancos o pasarelas corresponden al negocio.",
   "No se incluye facturación electrónica ni integraciones personalizadas con sistemas externos.",
   "El soporte posterior cubre errores relacionados con el desarrollo entregado; no incluye rediseños completos ni carga permanente de contenido.",

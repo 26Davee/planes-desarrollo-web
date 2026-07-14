@@ -44,6 +44,8 @@ export const FEATURES = [
   "Pago con tarjetas",
 ] as const;
 
+export const SEO_FEATURE_INDEX = FEATURES.indexOf("SEO técnico esencial");
+
 export type PlanId = "presencia" | "negocio" | "catalogo" | "tienda" | "tienda-pro";
 
 export type Plan = {
@@ -53,6 +55,7 @@ export type Plan = {
   description: string;
   highlight: string;
   includedCount: number;
+  seoFeature: string;
   badge?: string;
   button: string;
   whatsappMessage: string;
@@ -70,6 +73,7 @@ export const PLANS: readonly Plan[] = [
     description: "Para profesionales y emprendimientos que necesitan comenzar a mostrar su negocio en internet.",
     highlight: "Tu primera presencia digital profesional.",
     includedCount: 4,
+    seoFeature: "SEO técnico esencial",
     button: "Elegir Presencia",
     whatsappMessage: "Hola, me interesa el Plan Presencia de $173,04 + IVA ($199,00 en total). Quisiera conocer los pasos para comenzar mi página web.",
     corrections: "1 ronda de correcciones",
@@ -93,6 +97,7 @@ export const PLANS: readonly Plan[] = [
     description: "Para negocios y profesionales que necesitan presentar mejor sus servicios y generar confianza.",
     highlight: "Más espacio para contar lo que hace diferente a tu negocio.",
     includedCount: 6,
+    seoFeature: "SEO por página",
     button: "Elegir Negocio",
     whatsappMessage: "Hola, me interesa el Plan Negocio de $260,00 + IVA ($299,00 en total). Quisiera conocer los pasos para desarrollar la página de mi negocio.",
     corrections: "2 rondas de correcciones",
@@ -115,6 +120,7 @@ export const PLANS: readonly Plan[] = [
     description: "Para tiendas que quieren mostrar sus productos y recibir pedidos directamente por WhatsApp.",
     highlight: "Convierte tu página en una vitrina disponible todos los días.",
     includedCount: 9,
+    seoFeature: "SEO para productos y categorías",
     button: "Elegir Catálogo",
     whatsappMessage: "Hola, me interesa el Plan Catálogo de $346,96 + IVA ($399,00 en total) para mostrar mis productos y recibir pedidos por WhatsApp.",
     corrections: "2 rondas de correcciones",
@@ -139,6 +145,7 @@ export const PLANS: readonly Plan[] = [
     description: "Para negocios que desean recibir pedidos completos y pagos por transferencia o contraentrega.",
     highlight: "Comienza a vender con carrito, inventario y gestión de pedidos.",
     includedCount: 14,
+    seoFeature: "SEO para comercio electrónico",
     button: "Elegir Tienda",
     whatsappMessage: "Hola, me interesa el Plan Tienda de $477,39 + IVA ($549,00 en total) con carrito, inventario y pagos por transferencia.",
     corrections: "3 rondas de correcciones",
@@ -164,6 +171,7 @@ export const PLANS: readonly Plan[] = [
     description: "Para negocios que quieren ofrecer una experiencia completa de compra y recibir pagos con tarjetas.",
     highlight: "Todo lo necesario para vender directamente desde tu página.",
     includedCount: 16,
+    seoFeature: "SEO avanzado inicial",
     badge: "MÁS COMPLETO",
     button: "Elegir Tienda Pro",
     whatsappMessage: "Hola, me interesa el Plan Tienda Pro de $651,30 + IVA ($749,00 en total) con carrito, inventario y pagos con tarjetas.",

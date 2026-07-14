@@ -14,6 +14,7 @@ import {
   PROCESS,
   Plan,
   priceWithVat,
+  SEO_FEATURE_INDEX,
   VAT_RATE,
   whatsappUrl,
 } from "./site-data";
@@ -122,7 +123,11 @@ function PlanCard({
         </summary>
         <ul>
           {FEATURES.map((feature, featureIndex) => (
-            <FeatureState key={feature} label={feature} included={featureIndex < plan.includedCount} />
+            <FeatureState
+              key={feature}
+              label={featureIndex === SEO_FEATURE_INDEX ? plan.seoFeature : feature}
+              included={featureIndex < plan.includedCount}
+            />
           ))}
         </ul>
       </details>

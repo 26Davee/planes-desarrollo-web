@@ -192,6 +192,7 @@ export const PROCESS = [
 
 export const CONDITIONS = [
   "Los precios destacados son valores base sin IVA, expresados en dólares estadounidenses (USD). Al añadir el 15% de IVA se obtiene el total final indicado en cada plan.",
+  "Los valores monetarios de la sección de servicios adicionales son precios finales e incluyen IVA. El recargo por entrega urgente se calcula sobre el total final cotizado.",
   "Los precios de lanzamiento son válidos para los primeros cinco proyectos confirmados o hasta el 30 de septiembre de 2026, lo que ocurra primero.",
   "El dominio, hosting y certificado SSL están incluidos durante el primer año.",
   "La renovación del dominio y hosting a partir del segundo año será asumida por el propietario del negocio. El valor se informará antes del vencimiento.",
@@ -210,7 +211,7 @@ export const CONDITIONS = [
 ] as const;
 
 export const FAQS = [
-  { question: "¿Los precios incluyen IVA?", answer: "El precio destacado se muestra sin IVA y a su lado se indica + IVA 15%. Debajo aparece el total final: por ejemplo, $173,04 + IVA corresponde a $199,00 en total." },
+  { question: "¿Los precios incluyen IVA?", answer: "En los planes, el precio destacado se muestra sin IVA y debajo aparece el total final; por ejemplo, $173,04 + IVA corresponde a $199,00. En los servicios adicionales, todos los valores monetarios indicados ya incluyen IVA." },
   { question: "¿El dominio y hosting están incluidos?", answer: "Sí. Todos los planes incluyen dominio, hosting y certificado SSL durante el primer año. A partir del segundo año, la renovación será asumida por el propietario del sitio." },
   { question: "¿Podré administrar mi página?", answer: "Sí. Al finalizar el proyecto recibirás una capacitación básica para actualizar la información correspondiente al plan contratado." },
   { question: "¿Quién entrega las fotografías y los textos?", answer: "El cliente debe proporcionar el logotipo, fotografías, precios, descripciones y datos del negocio. La creación de contenido adicional puede cotizarse por separado." },
@@ -262,11 +263,36 @@ export const COMPARISON_ROWS: readonly ComparisonRow[] = [
 ] as const;
 
 export const ADD_ONS = [
-  { name: "Página adicional", price: "$35 + IVA", detail: "Una página informativa adicional dentro del mismo proyecto." },
-  { name: "Producto adicional", price: "Desde $4 + IVA", detail: "$4 con contenido listo o $8 si requiere edición de texto e imagen." },
-  { name: "Ronda adicional", price: "Desde $35 + IVA", detail: "Entre $35 y $50 según el tipo de sitio y la complejidad de los cambios." },
-  { name: "Entrega urgente", price: "+20%", detail: "Sujeta a disponibilidad y a que todo el contenido esté listo." },
-  { name: "Mantenimiento", price: "Desde $20/mes + IVA", detail: "Desde $20 para webs, $35 para catálogos y $50 para tiendas." },
+  {
+    name: "Página adicional",
+    price: "$35",
+    taxLabel: "IVA incluido",
+    detail: "Página sencilla dentro del diseño existente, con textos e imágenes entregados por el cliente. Una página personalizada se cotiza desde $55, IVA incluido.",
+  },
+  {
+    name: "Producto adicional",
+    price: "$4 / $8",
+    taxLabel: "IVA incluido",
+    detail: "$4 con contenido listo o $8 si requiere edición básica. Productos con variaciones desde $10. Pedido mínimo de cinco productos.",
+  },
+  {
+    name: "Ronda adicional",
+    price: "Desde $35",
+    taxLabel: "IVA incluido",
+    detail: "$35 para Presencia y Negocio, $45 para Catálogo y $60 para Tiendas. Incluye una lista consolidada de ajustes menores y hasta dos horas; después, $25 por hora.",
+  },
+  {
+    name: "Entrega urgente",
+    price: "Desde +20%",
+    taxLabel: "Sobre el total final",
+    detail: "+20% por una reducción moderada del plazo y desde +30% cuando el tiempo se reduce casi a la mitad. Sujeto a disponibilidad y a que el contenido esté listo.",
+  },
+  {
+    name: "Mantenimiento",
+    price: "Desde $20/mes",
+    taxLabel: "IVA incluido",
+    detail: "$20 para web informativa, hasta 30 minutos; $35 para catálogo, hasta una hora o cinco productos; $50 para tienda, hasta 90 minutos y revisión técnica.",
+  },
 ] as const;
 
 export const whatsappUrl = (message: string) =>

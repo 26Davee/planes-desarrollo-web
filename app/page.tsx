@@ -405,13 +405,16 @@ export default function Home() {
             <div className="add-ons-heading">
               <p className="eyebrow"><span /> Alcance adicional</p>
               <h3>Extras con precios claros.</h3>
-              <p>Solo pagas más cuando el proyecto necesita trabajo fuera del alcance incluido.</p>
+              <p>Solo pagas más cuando el proyecto necesita trabajo fuera del alcance incluido. Los valores monetarios de esta sección son precios finales con IVA incluido.</p>
             </div>
             <div className="add-ons-grid">
               {ADD_ONS.map((item) => (
                 <article key={item.name}>
                   <h4>{item.name}</h4>
-                  <strong>{item.price}</strong>
+                  <div className="add-on-price">
+                    <strong>{item.price}</strong>
+                    <small>{item.taxLabel}</small>
+                  </div>
                   <p>{item.detail}</p>
                 </article>
               ))}

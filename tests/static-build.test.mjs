@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
-import { PLANS, priceWithVat } from "../app/site-data.ts";
+import { ADD_ONS, PLANS, priceWithVat } from "../app/site-data.ts";
 
 const distUrl = new URL("../dist/", import.meta.url);
 
@@ -10,6 +10,16 @@ test("los precios sin IVA producen los totales finales anunciados", () => {
     PLANS.map((plan) => priceWithVat(plan.price)),
     [199, 299, 399, 549, 749],
   );
+});
+
+test("los adicionales muestran precios finales y límites claros", () => {
+  assert.deepEqual(
+    ADD_ONS.map((item) => item.price),
+    ["$35", "$4 / $8", "Desde $35", "Desde +20%", "Desde $20/mes"],
+  );
+  assert.equal(ADD_ONS.filter((item) => item.taxLabel === "IVA incluido").length, 4);
+  assert.match(ADD_ONS[1].detail, /Pedido mínimo de cinco productos/);
+  assert.match(ADD_ONS[2].detail, /hasta dos horas/);
 });
 
 test("la compilación genera una página estática completa", async () => {
@@ -48,6 +58,11 @@ test("los datos profesionales y enlaces finales están incluidos", async () => {
   assert.match(bundle, /Hasta 50/);
   assert.match(bundle, /60 días/);
   assert.match(bundle, /Página adicional/);
+  assert.match(bundle, /IVA incluido/);
+  assert.match(bundle, /desde \$55/);
+  assert.match(bundle, /Pedido mínimo de cinco productos/);
+  assert.match(bundle, /desde \+30%/);
+  assert.match(bundle, /hasta 90 minutos/);
   assert.doesNotMatch(bundle, /DE \/ WEB|593XXXXXXXXX|tudominio/);
-  assert.doesNotMatch(bundle, /IVA incluido|vigentes hasta nuevo aviso/);
+  assert.doesNotMatch(bundle, /vigentes hasta nuevo aviso/);
 });

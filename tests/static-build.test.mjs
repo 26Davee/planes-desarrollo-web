@@ -1,8 +1,16 @@
 import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
+import { PLANS, priceWithVat } from "../app/site-data.ts";
 
 const distUrl = new URL("../dist/", import.meta.url);
+
+test("los precios sin IVA producen los totales finales anunciados", () => {
+  assert.deepEqual(
+    PLANS.map((plan) => priceWithVat(plan.price)),
+    [199, 299, 399, 549, 749],
+  );
+});
 
 test("la compilación genera una página estática completa", async () => {
   const html = await readFile(new URL("index.html", distUrl), "utf8");
@@ -26,12 +34,17 @@ test("los datos profesionales y enlaces finales están incluidos", async () => {
   assert.match(bundle, /david005espinoza@gmail\.com/);
   assert.match(bundle, /mi-portafolio-6jz\.pages\.dev/);
   assert.match(bundle, /\+ IVA/);
-  assert.match(bundle, /Total estimado con IVA/);
-  assert.match(bundle, /199/);
-  assert.match(bundle, /299/);
-  assert.match(bundle, /399/);
-  assert.match(bundle, /549/);
-  assert.match(bundle, /749/);
+  assert.match(bundle, /Total final con IVA/);
+  assert.match(bundle, /173\.04/);
+  assert.match(bundle, /260/);
+  assert.match(bundle, /346\.96/);
+  assert.match(bundle, /477\.39/);
+  assert.match(bundle, /651\.3/);
+  assert.match(bundle, /199,00 en total/);
+  assert.match(bundle, /299,00 en total/);
+  assert.match(bundle, /399,00 en total/);
+  assert.match(bundle, /549,00 en total/);
+  assert.match(bundle, /749,00 en total/);
   assert.match(bundle, /Hasta 50/);
   assert.match(bundle, /60 días/);
   assert.match(bundle, /Página adicional/);

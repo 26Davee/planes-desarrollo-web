@@ -14,8 +14,13 @@ export const CONTACT = {
 export const VAT_RATE = 0.15;
 export const LAUNCH_VALIDITY = "los primeros cinco proyectos confirmados o hasta el 30 de septiembre de 2026";
 
-export const priceWithVat = (price: number) => Number((price * (1 + VAT_RATE)).toFixed(2));
-export const formatUsd = (value: number) => value.toLocaleString("en-US", {
+export const priceWithVat = (price: number) => {
+  const priceInCents = Math.round(price * 100);
+  const vatPercent = Math.round(VAT_RATE * 100);
+
+  return Math.round((priceInCents * (100 + vatPercent)) / 100) / 100;
+};
+export const formatUsd = (value: number) => value.toLocaleString("es-EC", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
@@ -61,12 +66,12 @@ export const PLANS: readonly Plan[] = [
   {
     id: "presencia",
     name: "Presencia",
-    price: 199,
+    price: 173.04,
     description: "Para profesionales y emprendimientos que necesitan comenzar a mostrar su negocio en internet.",
     highlight: "Tu primera presencia digital profesional.",
     includedCount: 4,
     button: "Elegir Presencia",
-    whatsappMessage: "Hola, me interesa el Plan Presencia desde $199 + IVA. Quisiera conocer los pasos para comenzar mi página web.",
+    whatsappMessage: "Hola, me interesa el Plan Presencia de $173,04 + IVA ($199,00 en total). Quisiera conocer los pasos para comenzar mi página web.",
     corrections: "1 ronda de correcciones",
     support: "15 días de soporte",
     delivery: "De 7 a 10 días laborables desde la entrega del contenido.",
@@ -83,12 +88,12 @@ export const PLANS: readonly Plan[] = [
   {
     id: "negocio",
     name: "Negocio",
-    price: 299,
+    price: 260,
     description: "Para negocios y profesionales que necesitan presentar mejor sus servicios y generar confianza.",
     highlight: "Más espacio para contar lo que hace diferente a tu negocio.",
     includedCount: 6,
     button: "Elegir Negocio",
-    whatsappMessage: "Hola, me interesa el Plan Negocio desde $299 + IVA. Quisiera conocer los pasos para desarrollar la página de mi negocio.",
+    whatsappMessage: "Hola, me interesa el Plan Negocio de $260,00 + IVA ($299,00 en total). Quisiera conocer los pasos para desarrollar la página de mi negocio.",
     corrections: "2 rondas de correcciones",
     support: "20 días de soporte",
     delivery: "De 10 a 15 días laborables desde la entrega del contenido.",
@@ -105,12 +110,12 @@ export const PLANS: readonly Plan[] = [
   {
     id: "catalogo",
     name: "Catálogo",
-    price: 399,
+    price: 346.96,
     description: "Para tiendas que quieren mostrar sus productos y recibir pedidos directamente por WhatsApp.",
     highlight: "Convierte tu página en una vitrina disponible todos los días.",
     includedCount: 9,
     button: "Elegir Catálogo",
-    whatsappMessage: "Hola, me interesa el Plan Catálogo desde $399 + IVA para mostrar mis productos y recibir pedidos por WhatsApp.",
+    whatsappMessage: "Hola, me interesa el Plan Catálogo de $346,96 + IVA ($399,00 en total) para mostrar mis productos y recibir pedidos por WhatsApp.",
     corrections: "2 rondas de correcciones",
     support: "30 días de soporte",
     delivery: "De 15 a 20 días laborables desde la entrega completa del contenido.",
@@ -128,12 +133,12 @@ export const PLANS: readonly Plan[] = [
   {
     id: "tienda",
     name: "Tienda",
-    price: 549,
+    price: 477.39,
     description: "Para negocios que desean recibir pedidos completos y pagos por transferencia o contraentrega.",
     highlight: "Comienza a vender con carrito, inventario y gestión de pedidos.",
     includedCount: 14,
     button: "Elegir Tienda",
-    whatsappMessage: "Hola, me interesa el Plan Tienda desde $549 + IVA con carrito, inventario y pagos por transferencia.",
+    whatsappMessage: "Hola, me interesa el Plan Tienda de $477,39 + IVA ($549,00 en total) con carrito, inventario y pagos por transferencia.",
     corrections: "3 rondas de correcciones",
     support: "45 días de soporte",
     delivery: "De 20 a 25 días laborables desde la entrega completa del contenido.",
@@ -152,13 +157,13 @@ export const PLANS: readonly Plan[] = [
   {
     id: "tienda-pro",
     name: "Tienda Pro",
-    price: 749,
+    price: 651.3,
     description: "Para negocios que quieren ofrecer una experiencia completa de compra y recibir pagos con tarjetas.",
     highlight: "Todo lo necesario para vender directamente desde tu página.",
     includedCount: 16,
     badge: "MÁS COMPLETO",
     button: "Elegir Tienda Pro",
-    whatsappMessage: "Hola, me interesa el Plan Tienda Pro desde $749 + IVA con carrito, inventario y pagos con tarjetas.",
+    whatsappMessage: "Hola, me interesa el Plan Tienda Pro de $651,30 + IVA ($749,00 en total) con carrito, inventario y pagos con tarjetas.",
     corrections: "3 rondas de correcciones",
     support: "60 días de soporte",
     delivery: "De 25 a 30 días laborables desde la entrega completa del contenido.",
@@ -186,7 +191,7 @@ export const PROCESS = [
 ] as const;
 
 export const CONDITIONS = [
-  "Todos los precios publicados son valores base en dólares estadounidenses (USD). Al total se añade el 15% de IVA vigente.",
+  "Los precios destacados son valores base sin IVA, expresados en dólares estadounidenses (USD). Al añadir el 15% de IVA se obtiene el total final indicado en cada plan.",
   "Los precios de lanzamiento son válidos para los primeros cinco proyectos confirmados o hasta el 30 de septiembre de 2026, lo que ocurra primero.",
   "El dominio, hosting y certificado SSL están incluidos durante el primer año.",
   "La renovación del dominio y hosting a partir del segundo año será asumida por el propietario del negocio. El valor se informará antes del vencimiento.",
@@ -205,7 +210,7 @@ export const CONDITIONS = [
 ] as const;
 
 export const FAQS = [
-  { question: "¿Los precios incluyen IVA?", answer: "Los valores grandes publicados corresponden al precio base. A cada plan se añade el 15% de IVA y el total estimado se muestra debajo del precio para que puedas conocer el valor final antes de contactarnos." },
+  { question: "¿Los precios incluyen IVA?", answer: "El precio destacado se muestra sin IVA y a su lado se indica + IVA 15%. Debajo aparece el total final: por ejemplo, $173,04 + IVA corresponde a $199,00 en total." },
   { question: "¿El dominio y hosting están incluidos?", answer: "Sí. Todos los planes incluyen dominio, hosting y certificado SSL durante el primer año. A partir del segundo año, la renovación será asumida por el propietario del sitio." },
   { question: "¿Podré administrar mi página?", answer: "Sí. Al finalizar el proyecto recibirás una capacitación básica para actualizar la información correspondiente al plan contratado." },
   { question: "¿Quién entrega las fotografías y los textos?", answer: "El cliente debe proporcionar el logotipo, fotografías, precios, descripciones y datos del negocio. La creación de contenido adicional puede cotizarse por separado." },

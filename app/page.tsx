@@ -93,7 +93,7 @@ function PlanCard({
 
       <div className="price-block">
         <div className="price-line">
-          <p className="price"><span aria-hidden="true">$</span>{plan.price}</p>
+          <p className="price"><span aria-hidden="true">$</span>{formatUsd(plan.price)}</p>
           <span className="tax-label">+ IVA {Math.round(VAT_RATE * 100)}%</span>
         </div>
         <div className="price-context">
@@ -101,7 +101,7 @@ function PlanCard({
           <small>Precio base</small>
         </div>
       </div>
-      <p className="price-total">Total estimado con IVA: <strong>${formatUsd(priceWithVat(plan.price))}</strong></p>
+      <p className="price-total">Total final con IVA: <strong>${formatUsd(priceWithVat(plan.price))}</strong></p>
 
       <p className="hosting-note"><span aria-hidden="true">●</span> Dominio, hosting y SSL por un año</p>
 
@@ -294,7 +294,7 @@ export default function Home() {
             </div>
             <div className="section-intro">
               <p>Todos los planes parten de una base profesional. A medida que avanzas, se incorporan herramientas para mostrar productos, gestionar pedidos y vender directamente desde tu página.</p>
-              <small>Precios base de lanzamiento expresados en USD. Se añade el 15% de IVA y mostramos el total estimado en cada plan. Válidos para {LAUNCH_VALIDITY}.</small>
+              <small>Precios de lanzamiento sin IVA, expresados en USD. El total final con IVA se muestra debajo de cada precio. Válidos para {LAUNCH_VALIDITY}.</small>
             </div>
           </div>
 
@@ -328,7 +328,7 @@ export default function Home() {
                   {PLANS.map((plan, index) => (
                     <th key={plan.id} scope="col" className={highlightedColumn === index ? "column-highlight" : ""}>
                       <span>{plan.name}</span>
-                      <strong>${plan.price} <small>+ IVA</small></strong>
+                      <strong>${formatUsd(plan.price)} <small>+ IVA</small></strong>
                     </th>
                   ))}
                 </tr>

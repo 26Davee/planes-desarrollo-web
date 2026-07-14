@@ -44,6 +44,27 @@ test("el alcance SEO aumenta de forma progresiva entre los planes", () => {
   assert.match(PLANS[4].extras.join(" "), /palabras clave/);
 });
 
+test("los términos técnicos tienen explicaciones breves", () => {
+  const termsWithHelp = [
+    "Hosting por un año",
+    "Certificado SSL",
+    "SEO técnico esencial",
+    "SEO por página",
+    "SEO para productos y categorías",
+    "Datos estructurados",
+    "Google Analytics",
+    "Google Search Console",
+    "Medición de conversiones",
+    "Pago con tarjetas",
+  ];
+
+  for (const label of termsWithHelp) {
+    const row = COMPARISON_ROWS.find((item) => item.label === label);
+    assert.ok(row?.hint, `${label} debe incluir una explicación`);
+    assert.ok(row.hint.length < 180, `${label} debe mantener una explicación corta`);
+  }
+});
+
 test("la compilación genera una página estática completa", async () => {
   const html = await readFile(new URL("index.html", distUrl), "utf8");
 
@@ -92,6 +113,9 @@ test("los datos profesionales y enlaces finales están incluidos", async () => {
   assert.match(bundle, /SEO avanzado inicial/);
   assert.match(bundle, /Investigación inicial de palabras clave/);
   assert.match(bundle, /No garantiza una posición específica en Google/);
+  assert.match(bundle, /Explicación de/);
+  assert.match(bundle, /toca \? para conocer cada término/);
+  assert.match(bundle, /Herramienta de Google para comprobar la indexación/);
   assert.doesNotMatch(bundle, /DE \/ WEB|593XXXXXXXXX|tudominio/);
   assert.doesNotMatch(bundle, /vigentes hasta nuevo aviso/);
 });

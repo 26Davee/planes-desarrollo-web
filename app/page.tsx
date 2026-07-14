@@ -162,6 +162,33 @@ function ComparisonCell({ value }: { value: boolean | string }) {
   return <span>{value}</span>;
 }
 
+function ComparisonTerm({
+  label,
+  hint,
+  tooltipId,
+}: {
+  label: string;
+  hint?: string;
+  tooltipId: string;
+}) {
+  if (!hint) return <span>{label}</span>;
+
+  return (
+    <span className="comparison-term">
+      <span>{label}</span>
+      <button
+        className="comparison-help"
+        type="button"
+        aria-label={`Explicación de ${label}`}
+        aria-describedby={tooltipId}
+      >
+        <span aria-hidden="true">?</span>
+      </button>
+      <span className="comparison-tooltip" id={tooltipId} role="tooltip">{hint}</span>
+    </span>
+  );
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -324,7 +351,7 @@ export default function Home() {
             <p>Revisa cada función y encuentra la opción que corresponde a las necesidades actuales de tu proyecto.</p>
           </div>
 
-          <div className="table-hint" aria-hidden="true">Desliza para comparar →</div>
+          <div className="table-hint" aria-hidden="true">Desliza para comparar · toca ? para conocer cada término →</div>
           <div className="comparison-wrap reveal" tabIndex={0} aria-label="Tabla de comparación de planes; desplázate horizontalmente si es necesario">
             <table>
               <thead>
@@ -339,10 +366,14 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                {COMPARISON_ROWS.map((row) => (
+                {COMPARISON_ROWS.map((row, rowIndex) => (
                   <tr key={row.label}>
                     <th scope="row">
-                      {row.hint ? <abbr title={row.hint}>{row.label}<span aria-hidden="true">?</span></abbr> : row.label}
+                      <ComparisonTerm
+                        label={row.label}
+                        hint={row.hint}
+                        tooltipId={`comparison-help-${rowIndex}`}
+                      />
                     </th>
                     {row.values.map((value, index) => (
                       <td key={`${row.label}-${PLANS[index].id}`} className={highlightedColumn === index ? "column-highlight" : ""}>

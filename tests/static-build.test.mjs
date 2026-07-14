@@ -28,6 +28,16 @@ test("el alcance SEO aumenta de forma progresiva entre los planes", () => {
 
   assert.deepEqual(searchConsole?.values, [false, false, true, true, true]);
   assert.deepEqual(keywordResearch?.values, [false, false, false, false, true]);
+  assert.deepEqual(
+    PLANS.map((plan) => plan.seoFeature),
+    [
+      "SEO técnico esencial",
+      "SEO por página",
+      "SEO para productos y categorías",
+      "SEO para comercio electrónico",
+      "SEO avanzado inicial",
+    ],
+  );
   assert.match(PLANS[0].extras.join(" "), /SEO técnico esencial/);
   assert.match(PLANS[2].extras.join(" "), /SEO para categorías/);
   assert.match(PLANS[3].extras.join(" "), /medición inicial de conversiones/);
@@ -76,7 +86,10 @@ test("los datos profesionales y enlaces finales están incluidos", async () => {
   assert.match(bundle, /desde \+30%/);
   assert.match(bundle, /hasta 90 minutos/);
   assert.match(bundle, /SEO técnico esencial/);
+  assert.match(bundle, /SEO por página/);
   assert.match(bundle, /SEO para productos y categorías/);
+  assert.match(bundle, /SEO para comercio electrónico/);
+  assert.match(bundle, /SEO avanzado inicial/);
   assert.match(bundle, /Investigación inicial de palabras clave/);
   assert.match(bundle, /No garantiza una posición específica en Google/);
   assert.doesNotMatch(bundle, /DE \/ WEB|593XXXXXXXXX|tudominio/);

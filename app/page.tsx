@@ -205,8 +205,8 @@ export default function Home() {
       <header className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}>
         <div className="nav-shell">
           <a className="brand" href="#inicio" onClick={closeMenu} aria-label={`${CONTACT.brand}, ir al inicio`}>
-            <span className="brand-mark" aria-hidden="true">DE</span>
-            <span>{CONTACT.brand}</span>
+            <span className="brand-name">{CONTACT.brand}</span>
+            <small>{CONTACT.role}</small>
           </a>
 
           <button
@@ -222,9 +222,9 @@ export default function Home() {
           </button>
 
           <nav id="main-navigation" className={menuOpen ? "main-nav main-nav-open" : "main-nav"} aria-label="Navegación principal">
-            <a href="#inicio" onClick={closeMenu}>Inicio</a>
             <a href="#planes" onClick={closeMenu}>Planes</a>
             <a href="#comparacion" onClick={closeMenu}>Comparación</a>
+            <a href="#portafolio" onClick={closeMenu}>Portafolio</a>
             <a href="#proceso" onClick={closeMenu}>Cómo trabajamos</a>
             <a href="#preguntas" onClick={closeMenu}>Preguntas frecuentes</a>
           </nav>
@@ -285,7 +285,7 @@ export default function Home() {
             </div>
             <div className="section-intro">
               <p>Todos los planes parten de una base profesional. A medida que avanzas, se incorporan herramientas para mostrar productos, gestionar pedidos y vender directamente desde tu página.</p>
-              <small>Los valores corresponden a precios de lanzamiento y pueden variar si el proyecto requiere funciones adicionales o desarrollo personalizado.</small>
+              <small>Precios de lanzamiento expresados en USD, con IVA incluido y vigentes hasta nuevo aviso. Pueden variar si el proyecto requiere funciones adicionales o desarrollo personalizado.</small>
             </div>
           </div>
 
@@ -342,6 +342,21 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="portfolio-band" id="portafolio">
+          <div className="portfolio-band-inner reveal">
+            <div>
+              <p className="eyebrow"><span /> Trabajo real</p>
+              <h2>Conoce proyectos que ya he desarrollado.</h2>
+            </div>
+            <div className="portfolio-band-copy">
+              <p>Revisa mi portafolio para conocer el enfoque visual, la calidad y el tipo de experiencia que puedo construir para tu negocio.</p>
+              <a className="button button-primary" href={CONTACT.portfolio} target="_blank" rel="noreferrer">
+                Ver mi portafolio <Arrow />
+              </a>
+            </div>
+          </div>
+        </section>
+
         <section className="section process-section" id="proceso">
           <div className="section-heading section-heading-split reveal">
             <div>
@@ -381,7 +396,7 @@ export default function Home() {
             <div className="payment-copy">
               <p className="eyebrow"><span /> Forma de pago</p>
               <h3>Tres etapas, un avance ordenado.</h3>
-              <p>Cada etapa será revisada antes de continuar con la siguiente.</p>
+              <p>Cada etapa será revisada antes de continuar. El método de pago se acordará con cada cliente.</p>
             </div>
             <ol className="payment-steps">
               <li><strong>50%</strong><span>Para comenzar el proyecto</span></li>
@@ -431,18 +446,19 @@ export default function Home() {
       <footer className="site-footer">
         <div className="footer-main">
           <div className="footer-brand">
-            <a className="brand brand-light" href="#inicio"><span className="brand-mark" aria-hidden="true">DE</span><span>{CONTACT.brand}</span></a>
+            <a className="brand brand-light" href="#inicio"><span className="brand-name">{CONTACT.brand}</span><small>{CONTACT.role}</small></a>
             <p>Diseño y desarrollo de páginas web para negocios que quieren crecer en internet.</p>
           </div>
           <div className="footer-column">
             <h3>Contacto</h3>
-            <a href={whatsappUrl(generalAdviceMessage)} target="_blank" rel="noreferrer">WhatsApp: +{CONTACT.whatsapp}</a>
+            <a href={whatsappUrl(generalAdviceMessage)} target="_blank" rel="noreferrer">WhatsApp: {CONTACT.whatsappDisplay}</a>
             <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
             <span>{CONTACT.location}</span>
           </div>
           <div className="footer-column">
             <h3>Explorar</h3>
             <a href="#planes">Planes</a>
+            <a href={CONTACT.portfolio} target="_blank" rel="noreferrer">Portafolio ↗</a>
             <a href="#condiciones">Condiciones</a>
             <a href="#preguntas">Preguntas frecuentes</a>
             <a href="#privacidad">Política de privacidad</a>

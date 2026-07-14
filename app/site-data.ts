@@ -11,12 +11,21 @@ export const CONTACT = {
   portfolio: "https://mi-portafolio-6jz.pages.dev/",
 } as const;
 
+export const VAT_RATE = 0.15;
+export const LAUNCH_VALIDITY = "los primeros cinco proyectos confirmados o hasta el 30 de septiembre de 2026";
+
+export const priceWithVat = (price: number) => Number((price * (1 + VAT_RATE)).toFixed(2));
+export const formatUsd = (value: number) => value.toLocaleString("en-US", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 export const FEATURES = [
   "Dominio, hosting y certificado SSL",
   "Diseño adaptable a celulares",
   "WhatsApp y formulario de contacto",
   "SEO básico",
-  "Hasta cinco páginas internas",
+  "Páginas informativas según el plan",
   "Google Analytics",
   "Catálogo de productos",
   "Buscador de productos",
@@ -52,12 +61,12 @@ export const PLANS: readonly Plan[] = [
   {
     id: "presencia",
     name: "Presencia",
-    price: 180,
+    price: 199,
     description: "Para profesionales y emprendimientos que necesitan comenzar a mostrar su negocio en internet.",
     highlight: "Tu primera presencia digital profesional.",
     includedCount: 4,
     button: "Elegir Presencia",
-    whatsappMessage: "Hola, me interesa el Plan Presencia de $180. Quisiera conocer los pasos para comenzar mi página web.",
+    whatsappMessage: "Hola, me interesa el Plan Presencia desde $199 + IVA. Quisiera conocer los pasos para comenzar mi página web.",
     corrections: "1 ronda de correcciones",
     support: "15 días de soporte",
     delivery: "De 7 a 10 días laborables desde la entrega del contenido.",
@@ -74,18 +83,18 @@ export const PLANS: readonly Plan[] = [
   {
     id: "negocio",
     name: "Negocio",
-    price: 250,
+    price: 299,
     description: "Para negocios y profesionales que necesitan presentar mejor sus servicios y generar confianza.",
     highlight: "Más espacio para contar lo que hace diferente a tu negocio.",
     includedCount: 6,
     button: "Elegir Negocio",
-    whatsappMessage: "Hola, me interesa el Plan Negocio de $250. Quisiera conocer los pasos para desarrollar la página de mi negocio.",
+    whatsappMessage: "Hola, me interesa el Plan Negocio desde $299 + IVA. Quisiera conocer los pasos para desarrollar la página de mi negocio.",
     corrections: "2 rondas de correcciones",
-    support: "15 días de soporte",
+    support: "20 días de soporte",
     delivery: "De 10 a 15 días laborables desde la entrega del contenido.",
     extras: [
-      "Hasta cinco páginas internas",
-      "Inicio, nosotros, servicios, galería y contacto",
+      "Hasta cuatro páginas informativas",
+      "Inicio, nosotros, servicios y contacto",
       "WhatsApp, formulario y redes sociales",
       "Ubicación mediante Google Maps",
       "Hasta dos correos corporativos",
@@ -96,63 +105,66 @@ export const PLANS: readonly Plan[] = [
   {
     id: "catalogo",
     name: "Catálogo",
-    price: 300,
+    price: 399,
     description: "Para tiendas que quieren mostrar sus productos y recibir pedidos directamente por WhatsApp.",
     highlight: "Convierte tu página en una vitrina disponible todos los días.",
     includedCount: 9,
     button: "Elegir Catálogo",
-    whatsappMessage: "Hola, me interesa el Plan Catálogo de $300 para mostrar mis productos y recibir pedidos por WhatsApp.",
+    whatsappMessage: "Hola, me interesa el Plan Catálogo desde $399 + IVA para mostrar mis productos y recibir pedidos por WhatsApp.",
     corrections: "2 rondas de correcciones",
-    support: "20 días de soporte",
+    support: "30 días de soporte",
     delivery: "De 15 a 20 días laborables desde la entrega completa del contenido.",
     extras: [
-      "Sitio web informativo",
+      "Hasta cinco páginas informativas",
       "Catálogo de hasta 20 productos",
       "Categorías y página individual por producto",
       "Nombre, precio, descripción e imágenes",
       "Buscador básico y pedido por WhatsApp",
       "Panel para agregar o editar productos",
-      "Hasta dos correos corporativos",
+      "Hasta tres correos corporativos",
       "Capacitación para administrar el catálogo",
     ],
   },
   {
     id: "tienda",
     name: "Tienda",
-    price: 370,
+    price: 549,
     description: "Para negocios que desean recibir pedidos completos y pagos por transferencia o contraentrega.",
     highlight: "Comienza a vender con carrito, inventario y gestión de pedidos.",
     includedCount: 14,
     button: "Elegir Tienda",
-    whatsappMessage: "Hola, me interesa el Plan Tienda de $370 con carrito, inventario y pagos por transferencia.",
-    corrections: "2 rondas de correcciones",
-    support: "30 días de soporte",
+    whatsappMessage: "Hola, me interesa el Plan Tienda desde $549 + IVA con carrito, inventario y pagos por transferencia.",
+    corrections: "3 rondas de correcciones",
+    support: "45 días de soporte",
     delivery: "De 20 a 25 días laborables desde la entrega completa del contenido.",
     extras: [
-      "Tienda de hasta 20 productos",
+      "Hasta cinco páginas informativas",
+      "Tienda de hasta 30 productos",
       "Categorías, páginas individuales y buscador",
       "Carrito y finalización de compra",
       "Pago por transferencia o contraentrega",
       "Inventario y correos automáticos",
       "Cupones y una zona básica de envío",
+      "Hasta tres correos corporativos",
       "Capacitación para gestionar productos y pedidos",
     ],
   },
   {
     id: "tienda-pro",
     name: "Tienda Pro",
-    price: 450,
+    price: 749,
     description: "Para negocios que quieren ofrecer una experiencia completa de compra y recibir pagos con tarjetas.",
     highlight: "Todo lo necesario para vender directamente desde tu página.",
     includedCount: 16,
     badge: "MÁS COMPLETO",
     button: "Elegir Tienda Pro",
-    whatsappMessage: "Hola, me interesa el Plan Tienda Pro de $450 con carrito, inventario y pagos con tarjetas.",
-    corrections: "2 rondas de correcciones",
-    support: "30 días de soporte",
+    whatsappMessage: "Hola, me interesa el Plan Tienda Pro desde $749 + IVA con carrito, inventario y pagos con tarjetas.",
+    corrections: "3 rondas de correcciones",
+    support: "60 días de soporte",
     delivery: "De 25 a 30 días laborables desde la entrega completa del contenido.",
     extras: [
-      "Tienda de hasta 30 productos",
+      "Hasta siete páginas informativas",
+      "Tienda de hasta 50 productos",
       "Categorías y subcategorías",
       "Carrito y finalización de compra",
       "Registro de clientes e historial de pedidos",
@@ -160,6 +172,7 @@ export const PLANS: readonly Plan[] = [
       "Inventario, correos automáticos y cupones",
       "Hasta dos zonas de envío",
       "Google Analytics y Search Console",
+      "Hasta cinco correos corporativos",
       "Capacitación para productos, clientes y pedidos",
     ],
   },
@@ -173,7 +186,8 @@ export const PROCESS = [
 ] as const;
 
 export const CONDITIONS = [
-  "Todos los precios están expresados en dólares estadounidenses (USD), incluyen IVA y corresponden a valores de lanzamiento vigentes hasta nuevo aviso.",
+  "Todos los precios publicados son valores base en dólares estadounidenses (USD). Al total se añade el 15% de IVA vigente.",
+  "Los precios de lanzamiento son válidos para los primeros cinco proyectos confirmados o hasta el 30 de septiembre de 2026, lo que ocurra primero.",
   "El dominio, hosting y certificado SSL están incluidos durante el primer año.",
   "La renovación del dominio y hosting a partir del segundo año será asumida por el propietario del negocio. El valor se informará antes del vencimiento.",
   "El dominio debe registrarse con los datos del cliente.",
@@ -191,11 +205,12 @@ export const CONDITIONS = [
 ] as const;
 
 export const FAQS = [
+  { question: "¿Los precios incluyen IVA?", answer: "Los valores grandes publicados corresponden al precio base. A cada plan se añade el 15% de IVA y el total estimado se muestra debajo del precio para que puedas conocer el valor final antes de contactarnos." },
   { question: "¿El dominio y hosting están incluidos?", answer: "Sí. Todos los planes incluyen dominio, hosting y certificado SSL durante el primer año. A partir del segundo año, la renovación será asumida por el propietario del sitio." },
   { question: "¿Podré administrar mi página?", answer: "Sí. Al finalizar el proyecto recibirás una capacitación básica para actualizar la información correspondiente al plan contratado." },
   { question: "¿Quién entrega las fotografías y los textos?", answer: "El cliente debe proporcionar el logotipo, fotografías, precios, descripciones y datos del negocio. La creación de contenido adicional puede cotizarse por separado." },
   { question: "¿Puedo agregar más productos?", answer: "Sí. Cada plan incluye una cantidad específica de productos. Los productos adicionales pueden cargarse mediante un valor adicional o directamente por el cliente después de la capacitación." },
-  { question: "¿Los cambios son ilimitados?", answer: "No. Cada plan incluye una o dos rondas de correcciones. Los cambios adicionales se cotizan según su complejidad." },
+  { question: "¿Los cambios son ilimitados?", answer: "No. Cada plan incluye entre una y tres rondas de correcciones. Los cambios adicionales se cotizan según su complejidad." },
   { question: "¿El Plan Catálogo permite cobrar desde la página?", answer: "No. El Plan Catálogo permite mostrar productos y recibir solicitudes mediante WhatsApp. Para utilizar carrito y formas de pago se necesita el Plan Tienda o Tienda Pro." },
   { question: "¿Cuál es la diferencia entre Tienda y Tienda Pro?", answer: "El Plan Tienda permite utilizar carrito, inventario, transferencia y contraentrega. Tienda Pro agrega registro de clientes, historial de pedidos y pago con tarjetas." },
   { question: "¿Las comisiones por pagos con tarjeta están incluidas?", answer: "No. Las comisiones de las pasarelas o entidades financieras son cobradas directamente al negocio por cada transacción." },
@@ -208,13 +223,13 @@ export type ComparisonRow = { label: string; hint?: string; values: readonly Com
 
 export const COMPARISON_ROWS: readonly ComparisonRow[] = [
   { label: "Tipo de sitio", values: ["Una sección", "Sitio corporativo", "Catálogo", "Tienda virtual", "Tienda completa"] },
-  { label: "Cantidad de páginas", values: ["1 / 5 bloques", "Hasta 5", "Hasta 5", "Hasta 5", "Hasta 5"] },
-  { label: "Cantidad de productos", values: [false, false, "Hasta 20", "Hasta 20", "Hasta 30"] },
+  { label: "Páginas informativas", values: ["1 / 5 bloques", "Hasta 4", "Hasta 5", "Hasta 5", "Hasta 7"] },
+  { label: "Cantidad de productos", values: [false, false, "Hasta 20", "Hasta 30", "Hasta 50"] },
   { label: "Diseño adaptable", values: [true, true, true, true, true] },
   { label: "Dominio por un año", values: [true, true, true, true, true] },
   { label: "Hosting por un año", hint: "Alojamiento donde se mantiene disponible tu página.", values: [true, true, true, true, true] },
   { label: "Certificado SSL", hint: "Protege la conexión y muestra el candado de seguridad.", values: [true, true, true, true, true] },
-  { label: "Correos corporativos", values: ["1", "Hasta 2", "Hasta 2", "Hasta 2", "Hasta 2"] },
+  { label: "Correos corporativos", values: ["1", "Hasta 2", "Hasta 3", "Hasta 3", "Hasta 5"] },
   { label: "WhatsApp", values: [true, true, true, true, true] },
   { label: "Formulario", values: [true, true, true, true, true] },
   { label: "Google Maps", values: [true, true, true, true, true] },
@@ -237,8 +252,16 @@ export const COMPARISON_ROWS: readonly ComparisonRow[] = [
   { label: "Historial de pedidos", values: [false, false, false, false, true] },
   { label: "Pago con tarjetas", hint: "Requiere una cuenta aprobada por la pasarela de pagos.", values: [false, false, false, false, true] },
   { label: "Capacitación", values: ["Básica", "Básica", "Catálogo", "Productos y pedidos", "Gestión completa"] },
-  { label: "Rondas de correcciones", values: ["1", "2", "2", "2", "2"] },
-  { label: "Días de soporte", values: ["15 días", "15 días", "20 días", "30 días", "30 días"] },
+  { label: "Rondas de correcciones", values: ["1", "2", "2", "3", "3"] },
+  { label: "Días de soporte", values: ["15 días", "20 días", "30 días", "45 días", "60 días"] },
+] as const;
+
+export const ADD_ONS = [
+  { name: "Página adicional", price: "$35 + IVA", detail: "Una página informativa adicional dentro del mismo proyecto." },
+  { name: "Producto adicional", price: "Desde $4 + IVA", detail: "$4 con contenido listo o $8 si requiere edición de texto e imagen." },
+  { name: "Ronda adicional", price: "Desde $35 + IVA", detail: "Entre $35 y $50 según el tipo de sitio y la complejidad de los cambios." },
+  { name: "Entrega urgente", price: "+20%", detail: "Sujeta a disponibilidad y a que todo el contenido esté listo." },
+  { name: "Mantenimiento", price: "Desde $20/mes + IVA", detail: "Desde $20 para webs, $35 para catálogos y $50 para tiendas." },
 ] as const;
 
 export const whatsappUrl = (message: string) =>

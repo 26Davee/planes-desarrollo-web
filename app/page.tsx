@@ -2,14 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  ADD_ONS,
   COMPARISON_ROWS,
   CONDITIONS,
   CONTACT,
   FAQS,
   FEATURES,
+  formatUsd,
+  LAUNCH_VALIDITY,
   PLANS,
   PROCESS,
   Plan,
+  priceWithVat,
+  VAT_RATE,
   whatsappUrl,
 } from "./site-data";
 
@@ -87,12 +92,16 @@ function PlanCard({
       </div>
 
       <div className="price-block">
-        <p className="price"><span aria-hidden="true">$</span>{plan.price}</p>
-        <div>
+        <div className="price-line">
+          <p className="price"><span aria-hidden="true">$</span>{plan.price}</p>
+          <span className="tax-label">+ IVA {Math.round(VAT_RATE * 100)}%</span>
+        </div>
+        <div className="price-context">
           <span>Pago único</span>
-          <small>Desarrollo completo</small>
+          <small>Precio base</small>
         </div>
       </div>
+      <p className="price-total">Total estimado con IVA: <strong>${formatUsd(priceWithVat(plan.price))}</strong></p>
 
       <p className="hosting-note"><span aria-hidden="true">●</span> Dominio, hosting y SSL por un año</p>
 
@@ -285,7 +294,7 @@ export default function Home() {
             </div>
             <div className="section-intro">
               <p>Todos los planes parten de una base profesional. A medida que avanzas, se incorporan herramientas para mostrar productos, gestionar pedidos y vender directamente desde tu página.</p>
-              <small>Precios de lanzamiento expresados en USD, con IVA incluido y vigentes hasta nuevo aviso. Pueden variar si el proyecto requiere funciones adicionales o desarrollo personalizado.</small>
+              <small>Precios base de lanzamiento expresados en USD. Se añade el 15% de IVA y mostramos el total estimado en cada plan. Válidos para {LAUNCH_VALIDITY}.</small>
             </div>
           </div>
 
@@ -319,7 +328,7 @@ export default function Home() {
                   {PLANS.map((plan, index) => (
                     <th key={plan.id} scope="col" className={highlightedColumn === index ? "column-highlight" : ""}>
                       <span>{plan.name}</span>
-                      <strong>${plan.price}</strong>
+                      <strong>${plan.price} <small>+ IVA</small></strong>
                     </th>
                   ))}
                 </tr>
@@ -390,6 +399,23 @@ export default function Home() {
                 {CONDITIONS.map((condition) => <li key={condition}>{condition}</li>)}
               </ul>
             </details>
+          </div>
+
+          <div className="add-ons reveal" id="adicionales">
+            <div className="add-ons-heading">
+              <p className="eyebrow"><span /> Alcance adicional</p>
+              <h3>Extras con precios claros.</h3>
+              <p>Solo pagas más cuando el proyecto necesita trabajo fuera del alcance incluido.</p>
+            </div>
+            <div className="add-ons-grid">
+              {ADD_ONS.map((item) => (
+                <article key={item.name}>
+                  <h4>{item.name}</h4>
+                  <strong>{item.price}</strong>
+                  <p>{item.detail}</p>
+                </article>
+              ))}
+            </div>
           </div>
 
           <div className="payment-block reveal">

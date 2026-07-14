@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
-import { ADD_ONS, PLANS, priceWithVat } from "../app/site-data.ts";
+import { ADD_ONS, COMPARISON_ROWS, PLANS, priceWithVat } from "../app/site-data.ts";
 
 const distUrl = new URL("../dist/", import.meta.url);
 
@@ -20,6 +20,18 @@ test("los adicionales muestran precios finales y límites claros", () => {
   assert.equal(ADD_ONS.filter((item) => item.taxLabel === "IVA incluido").length, 4);
   assert.match(ADD_ONS[1].detail, /Pedido mínimo de cinco productos/);
   assert.match(ADD_ONS[2].detail, /hasta dos horas/);
+});
+
+test("el alcance SEO aumenta de forma progresiva entre los planes", () => {
+  const searchConsole = COMPARISON_ROWS.find((row) => row.label === "Google Search Console");
+  const keywordResearch = COMPARISON_ROWS.find((row) => row.label === "Investigación inicial de palabras clave");
+
+  assert.deepEqual(searchConsole?.values, [false, false, true, true, true]);
+  assert.deepEqual(keywordResearch?.values, [false, false, false, false, true]);
+  assert.match(PLANS[0].extras.join(" "), /SEO técnico esencial/);
+  assert.match(PLANS[2].extras.join(" "), /SEO para categorías/);
+  assert.match(PLANS[3].extras.join(" "), /medición inicial de conversiones/);
+  assert.match(PLANS[4].extras.join(" "), /palabras clave/);
 });
 
 test("la compilación genera una página estática completa", async () => {
@@ -63,6 +75,10 @@ test("los datos profesionales y enlaces finales están incluidos", async () => {
   assert.match(bundle, /Pedido mínimo de cinco productos/);
   assert.match(bundle, /desde \+30%/);
   assert.match(bundle, /hasta 90 minutos/);
+  assert.match(bundle, /SEO técnico esencial/);
+  assert.match(bundle, /SEO para productos y categorías/);
+  assert.match(bundle, /Investigación inicial de palabras clave/);
+  assert.match(bundle, /No garantiza una posición específica en Google/);
   assert.doesNotMatch(bundle, /DE \/ WEB|593XXXXXXXXX|tudominio/);
   assert.doesNotMatch(bundle, /vigentes hasta nuevo aviso/);
 });

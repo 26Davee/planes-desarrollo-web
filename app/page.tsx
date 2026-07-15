@@ -16,11 +16,13 @@ import {
   priceWithVat,
   SEO_FEATURE_INDEX,
   VAT_RATE,
+  WHATSAPP_LEVELS,
   whatsappUrl,
 } from "./site-data";
 
 const generalAdviceMessage = "Hola, quiero recibir asesoría para saber qué plan web se adapta mejor a mi negocio.";
 const finalMessage = "Hola, quiero desarrollar una página web para mi negocio. Necesito ayuda para elegir el plan más adecuado.";
+const storeAdviceMessage = "Hola, quiero comparar los planes Tienda y Tienda Pro para organizar mejor los pedidos de mi negocio.";
 
 function Arrow() {
   return <span className="button-arrow" aria-hidden="true">→</span>;
@@ -106,6 +108,8 @@ function PlanCard({
 
       <p className="hosting-note"><span aria-hidden="true">●</span> Dominio, hosting y SSL por un año</p>
 
+      <p className="plan-whatsapp"><span>WhatsApp</span><strong>{plan.whatsappFeature}</strong></p>
+
       <WhatsAppLink
         message={plan.whatsappMessage}
         className={`button plan-button ${featured ? "button-primary" : "button-outline"}`}
@@ -186,6 +190,50 @@ function ComparisonTerm({
       </button>
       <span className="comparison-tooltip" id={tooltipId} role="tooltip">{hint}</span>
     </span>
+  );
+}
+
+function WhatsAppProgression() {
+  return (
+    <section className="section whatsapp-section" id="whatsapp">
+      <div className="whatsapp-inner">
+        <div className="section-heading section-heading-split reveal">
+          <div>
+            <p className="eyebrow"><span /> Integración progresiva</p>
+            <h2>Tu WhatsApp evoluciona junto con tu negocio.</h2>
+          </div>
+          <p className="section-intro">Cada plan incorpora una forma diferente de aprovechar WhatsApp. Empieza con contacto directo y avanza hacia pedidos mejor organizados y una experiencia de compra más completa.</p>
+        </div>
+
+        <ol className="whatsapp-levels reveal" aria-label="Niveles de integración con WhatsApp por plan">
+          {WHATSAPP_LEVELS.map((level, index) => (
+            <li key={level.id} className={level.id === "tienda-pro" ? "whatsapp-level-featured" : ""}>
+              <div className="whatsapp-level-topline">
+                <span className="whatsapp-level-number">{String(index + 1).padStart(2, "0")}</span>
+                {"badge" in level ? <span className="whatsapp-level-badge">{level.badge}</span> : null}
+              </div>
+              <p className="whatsapp-level-plan">{level.plan}</p>
+              <h3>{level.title}</h3>
+              <p className="whatsapp-level-description">{level.description}</p>
+              {"note" in level ? <small className="whatsapp-level-note">{level.note}</small> : null}
+              <span className="whatsapp-level-tag">{level.tag}</span>
+            </li>
+          ))}
+        </ol>
+
+        <div className="whatsapp-cta reveal">
+          <div>
+            <h3>¿Quieres recibir pedidos más completos y reducir tareas manuales?</h3>
+            <p>Los planes Tienda y Tienda Pro completan más pasos dentro de la página y mantienen WhatsApp disponible para resolver dudas durante la compra.</p>
+            <small><strong>Alcance claro:</strong> las notificaciones automáticas mediante WhatsApp Business Platform se evalúan y cotizan por separado.</small>
+          </div>
+          <div className="whatsapp-cta-actions">
+            <WhatsAppLink message={storeAdviceMessage}>Consultar mi proyecto</WhatsAppLink>
+            <a className="button button-outline" href="#comparacion">Comparar todos los planes <Arrow /></a>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -343,6 +391,8 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <WhatsAppProgression />
 
         <section className="section comparison-section" id="comparacion">
           <div className="section-heading reveal">

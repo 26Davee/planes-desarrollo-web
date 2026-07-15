@@ -56,6 +56,7 @@ export type Plan = {
   highlight: string;
   includedCount: number;
   seoFeature: string;
+  whatsappFeature: string;
   badge?: string;
   button: string;
   whatsappMessage: string;
@@ -74,6 +75,7 @@ export const PLANS: readonly Plan[] = [
     highlight: "Tu primera presencia digital profesional.",
     includedCount: 4,
     seoFeature: "SEO técnico esencial",
+    whatsappFeature: "Contacto directo con mensaje preparado",
     button: "Elegir Presencia",
     whatsappMessage: "Hola, me interesa el Plan Presencia de $173,04 + IVA ($199,00 en total). Quisiera conocer los pasos para comenzar mi página web.",
     corrections: "1 ronda de correcciones",
@@ -98,6 +100,7 @@ export const PLANS: readonly Plan[] = [
     highlight: "Más espacio para contar lo que hace diferente a tu negocio.",
     includedCount: 6,
     seoFeature: "SEO por página",
+    whatsappFeature: "Consultas y cotizaciones prellenadas",
     button: "Elegir Negocio",
     whatsappMessage: "Hola, me interesa el Plan Negocio de $260,00 + IVA ($299,00 en total). Quisiera conocer los pasos para desarrollar la página de mi negocio.",
     corrections: "2 rondas de correcciones",
@@ -121,6 +124,7 @@ export const PLANS: readonly Plan[] = [
     highlight: "Convierte tu página en una vitrina disponible todos los días.",
     includedCount: 9,
     seoFeature: "SEO para productos y categorías",
+    whatsappFeature: "Pedidos organizados de productos",
     button: "Elegir Catálogo",
     whatsappMessage: "Hola, me interesa el Plan Catálogo de $346,96 + IVA ($399,00 en total) para mostrar mis productos y recibir pedidos por WhatsApp.",
     corrections: "2 rondas de correcciones",
@@ -146,6 +150,7 @@ export const PLANS: readonly Plan[] = [
     highlight: "Comienza a vender con carrito, inventario y gestión de pedidos.",
     includedCount: 14,
     seoFeature: "SEO para comercio electrónico",
+    whatsappFeature: "Apoyo durante el proceso de compra",
     button: "Elegir Tienda",
     whatsappMessage: "Hola, me interesa el Plan Tienda de $477,39 + IVA ($549,00 en total) con carrito, inventario y pagos por transferencia.",
     corrections: "3 rondas de correcciones",
@@ -172,6 +177,7 @@ export const PLANS: readonly Plan[] = [
     highlight: "Todo lo necesario para vender directamente desde tu página.",
     includedCount: 16,
     seoFeature: "SEO avanzado inicial",
+    whatsappFeature: "Apoyo para una compra más completa",
     badge: "MÁS COMPLETO",
     button: "Elegir Tienda Pro",
     whatsappMessage: "Hola, me interesa el Plan Tienda Pro de $651,30 + IVA ($749,00 en total) con carrito, inventario y pagos con tarjetas.",
@@ -191,6 +197,46 @@ export const PLANS: readonly Plan[] = [
       "Hasta cinco correos corporativos",
       "Capacitación para productos, clientes y pedidos",
     ],
+  },
+] as const;
+
+export const WHATSAPP_LEVELS = [
+  {
+    id: "presencia",
+    plan: "Presencia",
+    title: "Contacto directo",
+    description: "Tus visitantes abren una conversación desde la página con un mensaje previamente preparado.",
+    tag: "Atención manual",
+  },
+  {
+    id: "negocio",
+    plan: "Negocio",
+    title: "Consultas guiadas",
+    description: "El mensaje identifica el servicio o la consulta antes de que el cliente te escriba.",
+    tag: "Consulta prellenada",
+  },
+  {
+    id: "catalogo",
+    plan: "Catálogo",
+    title: "Pedidos organizados",
+    description: "El cliente elige productos y cantidades, y WhatsApp recibe un resumen listo para revisar.",
+    tag: "Pedido preparado",
+  },
+  {
+    id: "tienda",
+    plan: "Tienda",
+    title: "Apoyo durante la compra",
+    description: "La tienda reúne carrito, entrega y forma de pago; WhatsApp queda disponible para resolver dudas o recibir un comprobante.",
+    tag: "Compra más ordenada",
+    note: "Las transferencias se verifican manualmente antes de confirmar el pago.",
+  },
+  {
+    id: "tienda-pro",
+    plan: "Tienda Pro",
+    title: "Experiencia completa",
+    description: "El cliente puede pagar con tarjeta, crear su cuenta y consultar pedidos desde la tienda; WhatsApp funciona como canal de apoyo.",
+    tag: "Mayor autonomía",
+    badge: "Más completo",
   },
 ] as const;
 
@@ -214,6 +260,7 @@ export const CONDITIONS = [
   "Los cambios o funciones adicionales se cotizan por separado. No se incluyen cambios ilimitados.",
   "No se incluyen fotografías profesionales, creación de logotipo, redacción extensa ni manejo de redes sociales, salvo cotización independiente.",
   "Las licencias de plugins o herramientas premium no están incluidas cuando sean necesarias para una función especial.",
+  "Las notificaciones automáticas y otras integraciones avanzadas mediante WhatsApp Business Platform no están incluidas en los precios base; requieren evaluación técnica y cotización independiente.",
   "La integración de pagos con tarjeta se realiza con una pasarela compatible elegida según el proyecto y depende de una cuenta comercial aprobada.",
   "Las comisiones cobradas por bancos o pasarelas corresponden al negocio.",
   "No se incluye facturación electrónica ni integraciones personalizadas con sistemas externos.",
@@ -226,6 +273,9 @@ export const FAQS = [
   { question: "¿Los precios incluyen IVA?", answer: "En los planes, el precio destacado se muestra sin IVA y debajo aparece el total final; por ejemplo, $173,04 + IVA corresponde a $199,00. En los servicios adicionales, todos los valores monetarios indicados ya incluyen IVA." },
   { question: "¿Qué significa el SEO incluido?", answer: "Todos los planes incluyen una base técnica para que los buscadores puedan entender e indexar el sitio. Los planes superiores añaden optimización por página, SEO para productos, medición de conversiones y, en Tienda Pro, una investigación inicial de palabras clave y un reporte. Esto no garantiza aparecer primero en Google; el posicionamiento continuo se cotiza por separado." },
   { question: "¿El dominio y hosting están incluidos?", answer: "Sí. Todos los planes incluyen dominio, hosting y certificado SSL durante el primer año. A partir del segundo año, la renovación será asumida por el propietario del sitio." },
+  { question: "¿La integración con WhatsApp es igual en todos los planes?", answer: "No. Presencia facilita el contacto directo; Negocio organiza consultas y cotizaciones; Catálogo prepara un resumen del pedido; y Tienda y Tienda Pro completan más pasos dentro de la página mientras mantienen WhatsApp como canal de apoyo." },
+  { question: "¿El sistema confirma automáticamente una transferencia bancaria?", answer: "No. El pedido puede registrar la transferencia o permitir que el cliente envíe el comprobante, pero el negocio debe verificar el pago antes de marcarlo como confirmado. La confirmación automática requiere una pasarela de pago compatible." },
+  { question: "¿Puedo añadir una automatización avanzada de WhatsApp después?", answer: "Sí. Las notificaciones automáticas y otras funciones avanzadas pueden añadirse mediante WhatsApp Business Platform u otros servicios compatibles. Se evalúan y cotizan por separado porque pueden requerir proveedores externos, plantillas aprobadas y costos recurrentes." },
   { question: "¿Podré administrar mi página?", answer: "Sí. Al finalizar el proyecto recibirás una capacitación básica para actualizar la información correspondiente al plan contratado." },
   { question: "¿Quién entrega las fotografías y los textos?", answer: "El cliente debe proporcionar el logotipo, fotografías, precios, descripciones y datos del negocio. La creación de contenido adicional puede cotizarse por separado." },
   { question: "¿Puedo agregar más productos?", answer: "Sí. Cada plan incluye una cantidad específica de productos. Los productos adicionales pueden cargarse mediante un valor adicional o directamente por el cliente después de la capacitación." },
@@ -249,7 +299,7 @@ export const COMPARISON_ROWS: readonly ComparisonRow[] = [
   { label: "Hosting por un año", hint: "Servicio que mantiene tu página disponible en internet durante el primer año.", values: [true, true, true, true, true] },
   { label: "Certificado SSL", hint: "Protege la conexión de tus visitantes y muestra el candado de seguridad.", values: [true, true, true, true, true] },
   { label: "Correos corporativos", hint: "Cuentas con el dominio de tu negocio, por ejemplo ventas@tunegocio.com.", values: ["1", "Hasta 2", "Hasta 3", "Hasta 3", "Hasta 5"] },
-  { label: "WhatsApp", values: [true, true, true, true, true] },
+  { label: "Integración con WhatsApp", hint: "El nivel indica cuánto trabajo queda preparado antes de que el cliente inicie o continúe la conversación.", values: ["Contacto directo", "Consulta prellenada", "Pedido preparado", "Apoyo durante la compra", "Apoyo en compra completa"] },
   { label: "Formulario", values: [true, true, true, true, true] },
   { label: "Google Maps", values: [true, true, true, true, true] },
   { label: "SEO técnico esencial", hint: "Incluye título, descripción, sitemap, indexación y buenas prácticas técnicas iniciales.", values: [true, true, true, true, true] },

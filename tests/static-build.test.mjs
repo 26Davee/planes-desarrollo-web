@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
-import { ADD_ONS, COMPARISON_ROWS, PLANS, priceWithVat } from "../app/site-data.ts";
+import { ADD_ONS, COMPARISON_ROWS, CONDITIONS, FAQS, PLANS, priceWithVat, WHATSAPP_LEVELS } from "../app/site-data.ts";
 
 const distUrl = new URL("../dist/", import.meta.url);
 const stylesUrl = new URL("../app/globals.css", import.meta.url);
@@ -45,6 +45,28 @@ test("el alcance SEO aumenta de forma progresiva entre los planes", () => {
   assert.match(PLANS[4].extras.join(" "), /palabras clave/);
 });
 
+test("la integración con WhatsApp progresa sin prometer automatizaciones externas", () => {
+  const whatsappComparison = COMPARISON_ROWS.find((row) => row.label === "Integración con WhatsApp");
+  const whatsappFaqs = [
+    "¿La integración con WhatsApp es igual en todos los planes?",
+    "¿El sistema confirma automáticamente una transferencia bancaria?",
+    "¿Puedo añadir una automatización avanzada de WhatsApp después?",
+  ];
+
+  assert.deepEqual(
+    WHATSAPP_LEVELS.map((level) => level.id),
+    PLANS.map((plan) => plan.id),
+  );
+  assert.deepEqual(
+    whatsappComparison?.values,
+    ["Contacto directo", "Consulta prellenada", "Pedido preparado", "Apoyo durante la compra", "Apoyo en compra completa"],
+  );
+  assert.match(WHATSAPP_LEVELS[3].note, /verifican manualmente/);
+  assert.doesNotMatch(WHATSAPP_LEVELS.map((level) => `${level.title} ${level.tag}`).join(" "), /Ventas automatizadas|Máxima automatización/);
+  assert.ok(whatsappFaqs.every((question) => FAQS.some((item) => item.question === question)));
+  assert.ok(CONDITIONS.some((condition) => /WhatsApp Business Platform/.test(condition)));
+});
+
 test("los términos técnicos tienen explicaciones breves", () => {
   const termsWithHelp = [
     "Hosting por un año",
@@ -72,6 +94,16 @@ test("las explicaciones se despliegan dentro de su fila sin cubrir otras columna
   assert.match(styles, /\.comparison-term\s*\{[^}]*grid-template-columns:/s);
   assert.match(styles, /\.comparison-tooltip\s*\{[^}]*position: static;[^}]*grid-column: 1 \/ -1;/s);
   assert.doesNotMatch(styles, /left: calc\(100% \+ 10px\)/);
+});
+
+test("la progresión de WhatsApp conserva una distribución responsive", async () => {
+  const styles = await readFile(stylesUrl, "utf8");
+
+  assert.match(styles, /\.whatsapp-levels\s*\{[^}]*repeat\(5, minmax\(0, 1fr\)\)/s);
+  assert.match(styles, /\.whatsapp-levels\s*\{[^}]*repeat\(3, minmax\(0, 1fr\)\)/s);
+  assert.match(styles, /\.whatsapp-levels\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/s);
+  assert.match(styles, /\.whatsapp-levels\s*\{[^}]*grid-template-columns: 1fr/s);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
 });
 
 test("la compilación genera una página estática completa", async () => {
@@ -125,6 +157,10 @@ test("los datos profesionales y enlaces finales están incluidos", async () => {
   assert.match(bundle, /Explicación de/);
   assert.match(bundle, /toca \? para conocer cada término/);
   assert.match(bundle, /Herramienta de Google para comprobar la indexación/);
+  assert.match(bundle, /Tu WhatsApp evoluciona junto con tu negocio/);
+  assert.match(bundle, /Pedidos organizados/);
+  assert.match(bundle, /Alcance claro/);
+  assert.match(bundle, /WhatsApp Business Platform/);
   assert.doesNotMatch(bundle, /DE \/ WEB|593XXXXXXXXX|tudominio/);
   assert.doesNotMatch(bundle, /vigentes hasta nuevo aviso/);
 });

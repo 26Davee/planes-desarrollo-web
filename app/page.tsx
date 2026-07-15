@@ -392,8 +392,6 @@ export default function Home() {
           </div>
         </section>
 
-        <WhatsAppProgression />
-
         <section className="section comparison-section" id="comparacion">
           <div className="section-heading reveal">
             <p className="eyebrow"><span /> Comparación completa</p>
@@ -436,6 +434,8 @@ export default function Home() {
             </table>
           </div>
         </section>
+
+        <WhatsAppProgression />
 
         <section className="portfolio-band" id="portafolio">
           <div className="portfolio-band-inner reveal">

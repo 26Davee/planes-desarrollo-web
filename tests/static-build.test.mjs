@@ -5,6 +5,7 @@ import { ADD_ONS, COMPARISON_ROWS, CONDITIONS, FAQS, PLANS, priceWithVat, WHATSA
 
 const distUrl = new URL("../dist/", import.meta.url);
 const stylesUrl = new URL("../app/globals.css", import.meta.url);
+const pageUrl = new URL("../app/page.tsx", import.meta.url);
 
 test("los precios sin IVA producen los totales finales anunciados", () => {
   assert.deepEqual(
@@ -104,6 +105,17 @@ test("la progresión de WhatsApp conserva una distribución responsive", async (
   assert.match(styles, /\.whatsapp-levels\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/s);
   assert.match(styles, /\.whatsapp-levels\s*\{[^}]*grid-template-columns: 1fr/s);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
+});
+
+test("la explicación de WhatsApp aparece después de la comparación", async () => {
+  const page = await readFile(pageUrl, "utf8");
+  const comparisonPosition = page.indexOf('id="comparacion"');
+  const whatsappPosition = page.indexOf("<WhatsAppProgression />");
+  const portfolioPosition = page.indexOf('id="portafolio"');
+
+  assert.ok(comparisonPosition >= 0);
+  assert.ok(whatsappPosition > comparisonPosition);
+  assert.ok(portfolioPosition > whatsappPosition);
 });
 
 test("la compilación genera una página estática completa", async () => {
